@@ -22,6 +22,9 @@ class Demos extends Component {
             {
                 title: '医生端',
                 path: 'spa',
+            }, {
+                title: '拍照',
+                path: 'camera',
             }
         ],
     }
