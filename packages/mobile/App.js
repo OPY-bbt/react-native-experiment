@@ -6,9 +6,8 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button} from 'react-native';
-import { createStackNavigator, createAppContainer, createNavigator } from "react-navigation";
+import React, { Component } from 'react';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 import Demos from './pages/demos';
 import Gallery from './pages/gallery';
@@ -62,6 +61,7 @@ const RootNavigator = createStackNavigator(
 
 const AppContainer = createAppContainer(RootNavigator);
 
+// eslint-disable-next-line
 class App extends Component {
   render() {
     return (
