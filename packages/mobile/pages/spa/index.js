@@ -5,6 +5,8 @@ import {
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 
+import webview from './webview';
+
 class Spa extends Component {
     static navigationOptions = ({ navigation }) => ({
       title: navigation.getParam('title', 'title'),
@@ -22,8 +24,14 @@ class Spa extends Component {
             onPress={() => navigation.navigate('modal')}
           />
           <WebView
-            source={{ uri: 'https://doctor-spa-test.ifeizhen.com/' }}
+            source={{ uri: 'http://localhost:8000/' }}
             style={{ flex: 1 }}
+            ref={(n) => { webview.ref = n; }}
+            onMessage={(event) => {
+              if (event.nativeEvent.data) {
+                navigation.navigate(event.nativeEvent.data);
+              }
+            }}
           />
         </View>
       );

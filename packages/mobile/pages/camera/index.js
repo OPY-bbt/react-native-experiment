@@ -8,9 +8,11 @@ class Camera extends Component {
   takePicture = async () => {
     if (this.camera) {
       try {
+        const { navigation } = this.props;
         const options = { quality: 0.5, base64: true };
         const data = await this.camera.takePictureAsync(options);
         await CameraRoll.saveToCameraRoll(data.uri);
+        navigation.navigate('gallery');
       } catch (error) {
         console.log('take picture failed', error);
       }
