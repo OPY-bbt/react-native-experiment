@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet, Text, TouchableOpacity, View, CameraRoll
+  StyleSheet, Text, TouchableOpacity, View, CameraRoll,
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 

@@ -850,10 +850,6 @@ acorn@^6.0.1, acorn@^6.0.7:
   version "6.1.1"
   resolved "http://registry.npm.taobao.org/acorn/download/acorn-6.1.1.tgz#7d25ae05bb8ad1f9b699108e1094ecd7884adc1f"
 
-add@^2.0.6:
-  version "2.0.6"
-  resolved "http://registry.npm.taobao.org/add/download/add-2.0.6.tgz#248f0a9f6e5a528ef2295dbeec30532130ae2235"
-
 ajv@^6.5.5, ajv@^6.9.1:
   version "6.10.0"
   resolved "http://registry.npm.taobao.org/ajv/download/ajv-6.10.0.tgz#90d0d54439da587cd7e843bfb7045f50bd22bdf1"
@@ -6038,7 +6034,3 @@ yargs@^9.0.0:
     which-module "^2.0.0"
     y18n "^3.2.1"
     yargs-parser "^7.0.0"
-
-yarn@^1.15.2:
-  version "1.15.2"
-  resolved "http://registry.npm.taobao.org/yarn/download/yarn-1.15.2.tgz#7a064ca81ca34235f16376ad2f796ed432f9e285"

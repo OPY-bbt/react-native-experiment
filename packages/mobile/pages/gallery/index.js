@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import {
   Button, View, StyleSheet, Text, Image, CameraRoll, ScrollView,
-  TouchableHighlight, Platform,
+  TouchableHighlight, Platform
 } from 'react-native';
 
 import webview from '../spa/webview';
@@ -49,11 +49,12 @@ class Gallery extends Component {
         groupTypes: Platform.OS === 'ios' ? 'All' : undefined,
       })
       .then((r) => {
+        console.log('photos', r);
         this.setState({ photos: r.edges });
       })
       .catch((err) => {
         // Error Loading Images
-        console.log(err);
+        console.log('getPhotos error', err);
       });
   }
 

@@ -24,7 +24,7 @@ class Spa extends Component {
             onPress={() => navigation.navigate('modal')}
           />
           <WebView
-            source={{ uri: 'http://localhost:8000/' }}
+            source={{ uri: 'http://192.168.2.35:8000/' }}
             style={{ flex: 1 }}
             ref={(n) => { webview.ref = n; }}
             onMessage={(event) => {

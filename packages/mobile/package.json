@@ -10,14 +10,12 @@
     "test": "jest"
   },
   "dependencies": {
-    "add": "^2.0.6",
     "react": "16.8.3",
     "react-native": "0.59.4",
     "react-native-camera": "^2.3.0",
     "react-native-gesture-handler": "^1.1.0",
     "react-native-webview": "^5.6.2",
-    "react-navigation": "^3.7.1",
-    "yarn": "^1.15.2"
+    "react-navigation": "^3.7.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
