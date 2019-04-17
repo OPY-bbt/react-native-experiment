@@ -139,6 +139,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-vector-icons')
+    implementation project(':react-native-notification-banner')
     implementation project(':react-native-camera')
     implementation project(':react-native-webview')
     implementation project(':react-native-gesture-handler')

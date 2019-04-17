@@ -14,6 +14,7 @@ import Gallery from './pages/gallery';
 import Spa from './pages/spa';
 import Modal from './pages/modal';
 import Camera from './pages/camera';
+import Notification from './pages/notification';
 
 const AppNavigator = createStackNavigator(
   {
@@ -28,6 +29,9 @@ const AppNavigator = createStackNavigator(
     },
     camera: {
       screen: Camera,
+    },
+    notification: {
+      screen: Notification,
     }
   },
   {

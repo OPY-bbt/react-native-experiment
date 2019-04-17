@@ -33,3 +33,6 @@
 - Android 运行 `adb -s xxxxx` 之前要使用 `adb devices` 保证当前只有一个设备在线
 
 - 小米手机debug时，除了需要开启usb debug模式，还需要一些其他配置 [link](https://stackoverflow.com/questions/47239251/install-failed-user-restricted-android-studio-using-redmi-4-device)
+
+### Xcode 10.2
+- `error: Unable to resolve build file: XCBCore.BuildFile`。 同时打开两个workspace有时会出现这个错误。解决办法就是关闭其他的。什么鬼。。 [link](https://stackoverflow.com/questions/50708012/error-unable-to-resolve-build-file-xcbcore-buildfile)

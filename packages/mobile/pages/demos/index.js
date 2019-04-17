@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import {
-  Button, View, StyleSheet, PermissionsAndroid
+  Button, View, StyleSheet, PermissionsAndroid, Platform
 } from 'react-native';
 
 class Demos extends Component {
@@ -25,14 +25,19 @@ class Demos extends Component {
       }, {
         title: '拍照',
         path: 'camera',
+      }, {
+        title: '通知',
+        path: 'notification',
       }
     ],
   }
 
   componentDidMount() {
-    this.requestPermission('READ_EXTERNAL_STORAGE');
-    this.requestPermission('WRITE_EXTERNAL_STORAGE');
-    this.requestPermission('CAMERA');
+    if (Platform.OS !== 'ios') {
+      this.requestPermission('READ_EXTERNAL_STORAGE');
+      this.requestPermission('WRITE_EXTERNAL_STORAGE');
+      this.requestPermission('CAMERA');
+    }
   }
 
   requestPermission = async (permission) => {

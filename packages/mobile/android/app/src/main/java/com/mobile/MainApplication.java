@@ -3,6 +3,8 @@ package com.mobile;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
+import ui.notificationbanner.RNNotificationBannerPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
@@ -26,6 +28,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new VectorIconsPackage(),
+            new RNNotificationBannerPackage(),
             new RNCameraPackage(),
             new RNCWebViewPackage(),
             new RNGestureHandlerPackage()
