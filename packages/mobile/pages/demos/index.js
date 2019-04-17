@@ -34,9 +34,15 @@ class Demos extends Component {
 
   componentDidMount() {
     if (Platform.OS !== 'ios') {
-      this.requestPermission('READ_EXTERNAL_STORAGE');
-      this.requestPermission('WRITE_EXTERNAL_STORAGE');
-      this.requestPermission('CAMERA');
+      this.requestPermissions(['READ_EXTERNAL_STORAGE', 'WRITE_EXTERNAL_STORAGE', 'CAMERA']);
+    }
+  }
+
+  requestPermissions = async (permissions) => {
+    // eslint-disable-next-line
+    for (const permission of permissions) {
+      // eslint-disable-next-line
+      await this.requestPermission(permission);
     }
   }
 

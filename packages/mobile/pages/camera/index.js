@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet, Text, TouchableOpacity, View, CameraRoll,
+  StyleSheet, Text, TouchableOpacity, View, CameraRoll, Platform
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
@@ -9,7 +9,9 @@ class Camera extends Component {
     if (this.camera) {
       try {
         const { navigation } = this.props;
-        const options = { quality: 0.5, base64: true };
+        const options = {
+          fixOrientation: Platform.OS !== 'ios' ? true : undefined,
+        };
         const data = await this.camera.takePictureAsync(options);
         await CameraRoll.saveToCameraRoll(data.uri);
         navigation.navigate('gallery');

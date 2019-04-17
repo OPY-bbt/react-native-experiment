@@ -5,6 +5,8 @@ import {
   TouchableHighlight, Platform
 } from 'react-native';
 
+import { RNNotificationBanner } from 'react-native-notification-banner';
+
 import webview from '../spa/webview';
 
 class Gallery extends Component {
@@ -24,25 +26,36 @@ class Gallery extends Component {
   fetch = (formdata) => {
     const { navigation } = this.props;
 
-    fetch('https://doctor-api-test.ifeizhen.com/galleries/form_upload', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNjA2MywiZW5jcnlwdGVkX3Bhc3N3b3JkIjoiJDJhJDExJHZ1QlRVUTJtc2hRUTBKS3hObXpzV2VvbTRrYlpOUjl4b3c4dEx2dENYcXYwMlgxeFM5cGVPIiwiZXhwIjoxNTYzMTcwOTM4fQ.ZpYpAmykr4yTtqVV0LB0-V7JwVqtWzrZR0NeCavBAcc',
-      },
-      body: formdata,
-    }).then(() => {
-      webview.ref.injectJavaScript(`
-        window.g_store.dispatch({
-          type: 'galleryManage/fetch',
-          payload: { no: 10901 },
-        });
-        true;
-      `);
-      navigation.navigate('spa');
-    }).catch((err) => {
-      console.log(err);
+    RNNotificationBanner.Info({
+      title: '请稍后', subTitle: '资料上传中', duration: 10000, enableProgress: true, dismissable: false
     });
+
+    navigation.navigate('spa');
+
+    if (webview.token) {
+      fetch('https://doctor-api-test.ifeizhen.com/galleries/form_upload', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: webview.token,
+        },
+        body: formdata,
+      }).then(() => {
+        RNNotificationBanner.Dismiss();
+
+        RNNotificationBanner.Success({ title: '上传成功', subTitle: '' });
+
+        webview.ref.injectJavaScript(`
+          window.g_store.dispatch({
+            type: 'galleryManage/fetch',
+            payload: { no: ${webview.params.no} },
+          });
+          true;
+        `);
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
   }
 
   handleButtonPress = () => {
@@ -73,7 +86,7 @@ class Gallery extends Component {
       form.append('category', 'test');
       form.append('is_doctor_only', true);
       form.append('file', { uri, name: 'image.jpg', type: 'multipart/form-data' });
-      form.append('mp_user_id', '10901');
+      form.append('mp_user_id', webview.params.no);
       this.fetch(form);
     } else {
       navigation.navigate('spa');

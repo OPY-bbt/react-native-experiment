@@ -25,7 +25,18 @@ class Spa extends Component {
           ref={(n) => { webview.ref = n; }}
           onMessage={(event) => {
             if (event.nativeEvent.data) {
-              navigation.navigate(event.nativeEvent.data);
+              const { action, payload } = JSON.parse(event.nativeEvent.data);
+              switch (action) {
+                case 'token':
+                  webview.token = payload;
+                  break;
+                case 'navigation':
+                  webview.params = payload.params;
+                  navigation.navigate(payload.path);
+                  break;
+                default:
+                  console.warn('unknown action');
+              }
             }
           }}
         />
