@@ -4716,6 +4716,11 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "http://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
+react-native-background-upload@^5.1.0:
+  version "5.1.0"
+  resolved "http://registry.npm.taobao.org/react-native-background-upload/download/react-native-background-upload-5.1.0.tgz#68129cbd0d9f0ff33e4870866b81b6df5962b7d5"
+  integrity sha1-aBKcvQ2fD/M+SHCGa4G231lit9U=
+
 react-native-camera@^2.3.0:
   version "2.3.0"
   resolved "http://registry.npm.taobao.org/react-native-camera/download/react-native-camera-2.3.0.tgz#b4e4e015609464630b0b2efdf167dcd67a5e040f"

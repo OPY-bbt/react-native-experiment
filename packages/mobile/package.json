@@ -12,6 +12,7 @@
   "dependencies": {
     "react": "16.8.3",
     "react-native": "0.59.4",
+    "react-native-background-upload": "^5.1.0",
     "react-native-camera": "^2.3.0",
     "react-native-gesture-handler": "^1.1.0",
     "react-native-notification-banner": "^0.0.5",

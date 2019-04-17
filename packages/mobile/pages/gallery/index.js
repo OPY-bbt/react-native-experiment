@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 
 import { RNNotificationBanner } from 'react-native-notification-banner';
+import Upload from 'react-native-background-upload';
 
 import webview from '../spa/webview';
 
@@ -25,6 +26,7 @@ class Gallery extends Component {
 
   fetch = (formdata) => {
     const { navigation } = this.props;
+    const { uri, ...rest } = formdata;
 
     RNNotificationBanner.Info({
       title: '请稍后', subTitle: '资料上传中', duration: 10000, enableProgress: true, dismissable: false
@@ -33,27 +35,52 @@ class Gallery extends Component {
     navigation.navigate('spa');
 
     if (webview.token) {
-      fetch('https://doctor-api-test.ifeizhen.com/galleries/form_upload', {
-        method: 'post',
+      const options = {
+        url: 'https://doctor-api-test.ifeizhen.com/galleries/form_upload',
+        path: uri,
+        method: 'POST',
+        type: 'multipart',
+        field: 'file',
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: webview.token,
         },
-        body: formdata,
-      }).then(() => {
-        RNNotificationBanner.Dismiss();
+        // Below are options only supported on Android
+        notification: {
+          enabled: true
+        },
+        parameters: rest,
+      };
 
-        RNNotificationBanner.Success({ title: '上传成功', subTitle: '' });
+      Upload.startUpload(options).then((uploadId) => {
+        console.log('Upload started');
+        Upload.addListener('progress', uploadId, (data) => {
+          console.log(`Progress: ${data.progress}%`);
+        });
+        Upload.addListener('error', uploadId, (data) => {
+          console.log(`Error: ${data.error}%`);
+        });
+        Upload.addListener('cancelled', uploadId, () => {
+          console.log('Cancelled!');
+        });
+        Upload.addListener('completed', uploadId, () => {
+          // data includes responseCode: number and responseBody: Object
+          console.log('Completed!');
 
-        webview.ref.injectJavaScript(`
-          window.g_store.dispatch({
-            type: 'galleryManage/fetch',
-            payload: { no: ${webview.params.no} },
-          });
-          true;
-        `);
+          RNNotificationBanner.Dismiss();
+
+          RNNotificationBanner.Success({ title: '上传成功', subTitle: '' });
+
+          webview.ref.injectJavaScript(`
+            window.g_store.dispatch({
+              type: 'galleryManage/fetch',
+              payload: { no: ${webview.params.no} },
+            });
+            true;
+          `);
+        });
       }).catch((err) => {
-        console.log(err);
+        console.log('Upload error!', err);
       });
     }
   }
@@ -82,12 +109,13 @@ class Gallery extends Component {
     if (selectedImageUris.length > 0) {
       // only test
       const [uri] = selectedImageUris;
-      const form = new FormData();
-      form.append('category', 'test');
-      form.append('is_doctor_only', true);
-      form.append('file', { uri, name: 'image.jpg', type: 'multipart/form-data' });
-      form.append('mp_user_id', webview.params.no);
-      this.fetch(form);
+
+      this.fetch({
+        uri: Platform.OS === 'ios' ? uri : uri.replace('file://', ''),
+        is_doctor_only: 'true',
+        mp_user_id: webview.params.no,
+        category: 'test',
+      });
     } else {
       navigation.navigate('spa');
     }
