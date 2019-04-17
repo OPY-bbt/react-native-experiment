@@ -60,6 +60,10 @@ const RootNavigator = createStackNavigator(
   {
     mode: 'modal',
     headerMode: 'none',
+    defaultNavigationOptions: {
+      // 禁止modal页面可以在ios中用上到下滑动手势返回
+      gesturesEnabled: false,
+    },
   }
 );
 

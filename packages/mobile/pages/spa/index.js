@@ -1,41 +1,37 @@
 import React, { Component } from 'react';
 
 import {
-  Button, View, StyleSheet
+  View, StyleSheet
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 import webview from './webview';
 
 class Spa extends Component {
-    static navigationOptions = ({ navigation }) => ({
-      title: navigation.getParam('title', 'title'),
-    })
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.getParam('title', 'title'),
+  })
 
-    state = {}
+  state = {}
 
-    render() {
-      const { navigation } = this.props;
+  render() {
+    const { navigation } = this.props;
 
-      return (
-        <View style={styles.container}>
-          <Button
-            title="jump to native screen"
-            onPress={() => navigation.navigate('modal')}
-          />
-          <WebView
-            source={{ uri: 'http://192.168.2.35:8000/' }}
-            style={{ flex: 1 }}
-            ref={(n) => { webview.ref = n; }}
-            onMessage={(event) => {
-              if (event.nativeEvent.data) {
-                navigation.navigate(event.nativeEvent.data);
-              }
-            }}
-          />
-        </View>
-      );
-    }
+    return (
+      <View style={styles.container}>
+        <WebView
+          source={{ uri: 'http://192.168.2.35:8000/' }}
+          style={{ flex: 1 }}
+          ref={(n) => { webview.ref = n; }}
+          onMessage={(event) => {
+            if (event.nativeEvent.data) {
+              navigation.navigate(event.nativeEvent.data);
+            }
+          }}
+        />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({

@@ -17,6 +17,10 @@ class Gallery extends Component {
     selectedImageUris: [],
   }
 
+  componentDidMount() {
+    this.handleButtonPress();
+  }
+
   fetch = (formdata) => {
     const { navigation } = this.props;
 
@@ -101,7 +105,7 @@ class Gallery extends Component {
 
     return (
       <View style={styles.container}>
-        <Button title="back to webview" onPress={this.handleBackPress} />
+        <Button title="save and back" onPress={this.handleBackPress} />
         <Button title="Load Images" onPress={this.handleButtonPress} />
         <ScrollView style={styles.ScrollView}>
           <View style={styles.imageBox}>
