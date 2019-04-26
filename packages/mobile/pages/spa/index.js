@@ -20,7 +20,7 @@ class Spa extends Component {
     return (
       <View style={styles.container}>
         <WebView
-          source={{ uri: 'http://192.168.2.35:8000/' }}
+          source={{ uri: 'http://192.168.10.22:8000/' }}
           style={{ flex: 1 }}
           ref={(n) => { webview.ref = n; }}
           onMessage={(event) => {

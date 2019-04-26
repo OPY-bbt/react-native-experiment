@@ -1,25 +1,15 @@
 import React, { Component } from 'react';
 
 import {
-  Button, View, StyleSheet, Text, Image, CameraRoll, ScrollView,
-  TouchableHighlight, Platform
+  Button, View, StyleSheet, Text, Image, ScrollView,
+  TouchableHighlight,
 } from 'react-native';
 
 import { RNNotificationBanner } from 'react-native-notification-banner';
 import Upload from 'react-native-background-upload';
+import ImagePicker from 'react-native-image-picker';
 
 import webview from '../spa/webview';
-
-const formatUri = (uri) => {
-  if (Platform.OS === 'ios') {
-    if (uri.startsWith('ph://')) {
-      return uri;
-    }
-    return uri;
-  }
-
-  return uri.replace('file://', '');
-};
 
 class Gallery extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -32,18 +22,14 @@ class Gallery extends Component {
   }
 
   componentDidMount() {
-    this.handleButtonPress();
   }
 
   fetch = (formdata) => {
-    const { navigation } = this.props;
     const { uri, ...rest } = formdata;
 
-    RNNotificationBanner.Info({
-      title: '请稍后', subTitle: '资料上传中', duration: 10000, enableProgress: true, dismissable: false
-    });
-
-    navigation.navigate('spa');
+    // RNNotificationBanner.Info({
+    //   title: '请稍后', subTitle: '资料上传中', duration: 10000, enableProgress: true, dismissable: false
+    // });
 
     if (webview.token) {
       const options = {
@@ -96,40 +82,21 @@ class Gallery extends Component {
     }
   }
 
-  handleButtonPress = () => {
-    CameraRoll
-      .getPhotos({
-        first: 20,
-        assetType: 'Photos',
-        groupTypes: Platform.OS === 'ios' ? 'All' : undefined,
-      })
-      .then((r) => {
-        console.log('photos', r);
-        this.setState({ photos: r.edges });
-      })
-      .catch((err) => {
-        // Error Loading Images
-        console.log('getPhotos error', err);
-      });
-  }
-
   handleBackPress = () => {
-    const { selectedImageUris } = this.state;
+    const { photos } = this.state;
     const { navigation } = this.props;
 
-    if (selectedImageUris.length > 0) {
-      // only test
-      const [uri] = selectedImageUris;
-
-      this.fetch({
-        uri: formatUri(uri),
-        is_doctor_only: 'true',
-        mp_user_id: webview.params.no,
-        category: 'test',
+    setTimeout(() => {
+      photos.forEach(({ uri }) => {
+        this.fetch({
+          uri,
+          is_doctor_only: 'true',
+          mp_user_id: webview.params.no,
+          category: '其他',
+        });
       });
-    } else {
       navigation.navigate('spa');
-    }
+    }, 2000);
   }
 
   handleSelectImage = (image) => {
@@ -147,13 +114,21 @@ class Gallery extends Component {
     });
   }
 
-  navigateToCamera = () => {
-    const { navigation } = this.props;
-    navigation.navigate('camera');
+  selectGallery = () => {
+    const { photos } = this.state;
+    const imagePickerOptions = {
+      takePhotoButtonTitle: null,
+      title: 'Upload Media',
+      chooseFromLibraryButtonTitle: 'Choose From Library',
+    };
+
+    ImagePicker.showImagePicker(imagePickerOptions, (response) => {
+      this.setState({ photos: [...photos, response] });
+    });
   }
 
   render() {
-    const { photos, selectedImageUris } = this.state;
+    const { photos } = this.state;
 
     return (
       <View style={styles.container}>
@@ -162,7 +137,7 @@ class Gallery extends Component {
         <ScrollView style={styles.ScrollView}>
           <View style={styles.imageBox}>
             <View style={styles.blankBox}>
-              <Text style={styles.plus} onPress={this.navigateToCamera}>+</Text>
+              <Text style={styles.plus} onPress={this.selectGallery}>+</Text>
             </View>
           </View>
           {
@@ -172,9 +147,9 @@ class Gallery extends Component {
                 <TouchableHighlight onPress={() => this.handleSelectImage(p)}>
                   <Image
                     style={styles.Image}
-                    borderWidth={selectedImageUris.includes(p.node.image.uri) ? 5 : 0}
+                    // borderWidth={selectedImageUris.includes(p.node.image.uri) ? 5 : 0}
                     borderColor="#2BAEEE"
-                    source={{ uri: p.node.image.uri }}
+                    source={{ uri: p.uri }}
                   />
                 </TouchableHighlight>
               </View>

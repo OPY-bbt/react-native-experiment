@@ -13,7 +13,7 @@ class Camera extends Component {
           fixOrientation: Platform.OS !== 'ios' ? true : undefined,
         };
         const data = await this.camera.takePictureAsync(options);
-        await CameraRoll.saveToCameraRoll(data.uri);
+        await CameraRoll.saveToCameraRoll(data.uri, 'photo');
         navigation.navigate('gallery');
       } catch (error) {
         console.log('take picture failed', error);

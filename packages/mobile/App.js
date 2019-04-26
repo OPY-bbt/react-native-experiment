@@ -10,7 +10,7 @@ import React, { Component } from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 import Demos from './pages/demos';
-import Gallery from './pages/gallery';
+import Gallery from './pages/gallery/index_image_picker';
 import Spa from './pages/spa';
 import Modal from './pages/modal';
 import Camera from './pages/camera';

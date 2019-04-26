@@ -15,6 +15,7 @@
     "react-native-background-upload": "^5.1.0",
     "react-native-camera": "^2.3.0",
     "react-native-gesture-handler": "^1.1.0",
+    "react-native-image-picker": "^0.28.1",
     "react-native-notification-banner": "^0.0.5",
     "react-native-vector-icons": "5.0.0",
     "react-native-webview": "^5.6.2",

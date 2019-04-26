@@ -27,8 +27,19 @@
     }
 ```
 
+### react-native-background-upload
+- 上传文件不支持iOS新ph://格式文件比如从Camera.getPhoto获取文件就是此格式，所以需要使用 react-native-image-picker，此库获取的图片是file：//格式，相关[issue](https://github.com/Vydia/react-native-background-upload/issues/141)
+
+- 目前测下来当文件上传已经开始，这时候进入后台会继续下载，如果进入后台之前下载还没有开始启动（Upload.startUpload(options).then()还没有执行），那么在后台程序会被暂停。
+
+- 在后台完成的上传没有 complete 回调
+
+- 当同时上传多张图片时进入后台，会报lost connection错误(暂不支持多张图片后台上传)
+
 ### Debug
 - iOS 如果想调试webview里的js，需要使用Safari连接webview，但是Safari 12.1 有bug不能使用，需要下载12.2 Preview版。
+
+- iOS 真机 remote debug 会遇到跨域问题 [link](https://stackoverflow.com/questions/48445514/react-native-js-debugger-issues-with-cors-ios)
 
 - Android 运行 `adb -s xxxxx` 之前要使用 `adb devices` 保证当前只有一个设备在线
 

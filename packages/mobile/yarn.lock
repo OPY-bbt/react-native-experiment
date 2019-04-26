@@ -4735,6 +4735,11 @@ react-native-gesture-handler@^1.1.0:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
+react-native-image-picker@^0.28.1:
+  version "0.28.1"
+  resolved "http://registry.npm.taobao.org/react-native-image-picker/download/react-native-image-picker-0.28.1.tgz#1127460522e0c9741fc62f3d040271d298fb6a6e"
+  integrity sha1-ESdGBSLgyXQfxi89BAJx0pj7am4=
+
 react-native-notification-banner@^0.0.5:
   version "0.0.5"
   resolved "http://registry.npm.taobao.org/react-native-notification-banner/download/react-native-notification-banner-0.0.5.tgz#4c660190f91928a377f52f7fa32620a74ea8de86"
